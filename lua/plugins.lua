@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    "bluz71/vim-moonfly-colors",
+    { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
     {
         'saghen/blink.cmp',
         dependencies = { 'rafamadriz/friendly-snippets' },
@@ -20,12 +20,21 @@ require("lazy").setup({
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
-        keymap = { preset = 'default' },
-
+        keymap = {
+          preset = 'none',
+          ['<CR>'] = { 'accept', 'fallback' },
+          ['<Tab>'] = { 'select_next' },
+          ['<S-Tab>'] = { 'select_prev' },
+          ['<Down>'] = { 'select_next' },
+          ['<Up>'] = { 'select_prev' },
+          ["<C-d>"] = { "scroll_documentation_down" },
+          ["<C-u>"] = { "scroll_documentation_up" },
+        },
+        
         appearance = {
             nerd_font_variant = 'mono'
         },
-        completion = { documentation = { auto_show = false } },
+        completion = { documentation = { auto_show = true } },
         sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer' },
         },
@@ -59,5 +68,6 @@ require("lazy").setup({
         end
     },
     {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+    {'ThePrimeagen/vim-be-good'}
 
 })
